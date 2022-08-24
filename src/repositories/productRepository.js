@@ -11,13 +11,14 @@ const removeProduct = async (id) => {
   await Product.deleteOne({ _id: id });
 };
 
-const updateProduct = async ({ id, data }) => {
+// eslint-disable-next-line object-curly-newline
+const updateProduct = async ({ id, name, value, color }) => {
   const product = await Product.findOneAndUpdate(
     { _id: id },
     {
-      name: data.name,
-      value: data.value,
-      color: data.color,
+      name,
+      value,
+      color,
     },
     { new: true }
   );
@@ -31,9 +32,23 @@ const showProduct = async () => {
   return products;
 };
 
+const findByProductId = async (id) => {
+  const product = await Product.findById(id);
+
+  return product;
+};
+
+const findByProductName = async (name) => {
+  const product = await Product.findOne({ name });
+
+  return product;
+};
+
 module.exports = {
   insertProduct,
   removeProduct,
   updateProduct,
   showProduct,
+  findByProductId,
+  findByProductName,
 };
